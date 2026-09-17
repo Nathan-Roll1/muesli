@@ -1,0 +1,18 @@
+{
+  "production_commit": "40e4ade2cc3abbe95042512a864d1dedfac11f42",
+  "production_build_run": "https://github.com/Nathan-Roll1/muesli/actions/runs/35280327410",
+  "runtime_test_run": "https://github.com/Nathan-Roll1/muesli/actions/runs/35279000132",
+  "focused_tests_passed": 97,
+  "actual_transcriptions": 8,
+  "full_app_launch": "Launched locally with isolated bundle/data identity; Settings returned to onboarding; no permissions granted",
+  "fixture_build_run": "https://github.com/Nathan-Roll1/muesli/actions/runs/35282536764",
+  "fixture": "Unchanged ModelsView and real MuesliController hosted by a validation-only AppDelegate branch before capture/startup. No UI fixture code in the production PR.",
+  "fixture_bundle_id": "com.muesli.orukeet-models-fixture",
+  "fixture_support_directory": "MuesliModelsFixture",
+  "gui_checks": [
+    "Expanded actual Experimental section",
+    "Orukeet preview entry visible with445MiB download,25languages,CCBYSA4 license and Download button"
+  ],
+  "gui_runtime_limit": "Screenshot verifies actual model view layout; download/selection interaction in this fixture was not exercised. Acquisition and transcription tested through actual backend in97-test CI run.",
+  "granted_permissions": []
+}

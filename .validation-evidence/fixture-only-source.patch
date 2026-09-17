@@ -1,0 +1,41 @@
+diff --git a/native/MuesliNative/Sources/MuesliNativeApp/AppDelegate.swift b/native/MuesliNative/Sources/MuesliNativeApp/AppDelegate.swift
+index c1009f9..96edfbe 100644
+--- a/native/MuesliNative/Sources/MuesliNativeApp/AppDelegate.swift
++++ b/native/MuesliNative/Sources/MuesliNativeApp/AppDelegate.swift
+@@ -1,4 +1,5 @@
+ import AppKit
++import SwiftUI
+ import CloudKit
+ import Foundation
+ import Sparkle
+@@ -7,6 +8,7 @@ import MuesliCore
+ 
+ @MainActor
+ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
++    private var validationWindow: NSWindow?
+     private var controller: MuesliController?
+     private var terminationTask: Task<Void, Never>?
+     private(set) var updaterController: SPUStandardUpdaterController?
+@@ -46,6 +48,22 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
+                 self.updaterController = updaterController
+             }
+             self.controller = controller
++            #if DEBUG
++            // Validation-only host: render the unchanged production ModelsView without
++            // starting capture, hotkeys, or permission-gated onboarding. Not in the PR.
++            if ProcessInfo.processInfo.environment["MUESLI_MODELS_UI_FIXTURE"] == "1" {
++                let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1040, height: 850),
++                                      styleMask: [.titled, .closable, .resizable], backing: .buffered, defer: false)
++                window.title = "Muesli Models — UI validation fixture"
++                window.contentView = NSHostingView(rootView: ModelsView(appState: controller.appState, controller: controller))
++                window.center()
++                validationWindow = window
++                NSApplication.shared.setActivationPolicy(.regular)
++                window.makeKeyAndOrderFront(nil)
++                NSApplication.shared.activate(ignoringOtherApps: true)
++                return
++            }
++            #endif
+             controller.start()
+             NSApplication.shared.registerForRemoteNotifications()
+         } catch {
