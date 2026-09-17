@@ -1,0 +1,1 @@
+English, German, and French recordings from Google FLEURS, CC BY 4.0: https://huggingface.co/datasets/google/fleurs. Source clip IDs: en_us/1003119935936341070, de_de/10009182821551087671, fr_fr/10043298898524273336. silence.wav is generated zero-valued audio. Validation fixtures are kept on this fork-only branch, not in the proposed application change.
