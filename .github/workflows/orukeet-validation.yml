@@ -21,6 +21,7 @@ jobs:
           git rev-parse HEAD | tee evidence/source-head.txt
           xcodebuild -version | tee evidence/xcode-version.txt
           swift --version | tee evidence/swift-version.txt
+          git fetch --depth 1 origin 40e4ade2cc3abbe95042512a864d1dedfac11f42
           git diff 40e4ade2cc3abbe95042512a864d1dedfac11f42 -- native/MuesliNative/Sources/MuesliNativeApp/AppDelegate.swift > evidence/fixture-only-source.patch
           for name in en de fr silence; do
             curl --fail --retry 3 --location "https://raw.githubusercontent.com/Nathan-Roll1/muesli/${{ github.sha }}/.validation-fixtures/$name.wav" -o "fixtures/$name.wav"
