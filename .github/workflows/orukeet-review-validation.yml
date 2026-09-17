@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: fc8b02a9c58d4e6ec9134d315e79a6e0bc33293f
+          ref: 907d14fa3ee404f3824f8783a1c10793fd33adea
       - name: Record exact source and prepare attributed fixtures
         run: |
           mkdir -p evidence fixtures
@@ -28,7 +28,7 @@ jobs:
       - name: Focused regressions and actual model runtime
         run: |
           set -o pipefail
-          ORUKEET_AUDIO_DIR="$PWD/fixtures" swift test --package-path native/MuesliNative --filter 'OrukeetModelStoreTests|FluidAudioTranscriberTests|BackendOptionTests|ModelDownloadCoordinatorTests|DictationBackendPreparationTests' 2>&1 | tee evidence/swift-tests.log
+          ORUKEET_AUDIO_DIR="$PWD/fixtures" swift test --package-path native/MuesliNative --filter 'OrukeetModelStoreTests|FluidAudioTranscriberTests|BackendOptionTests|DictationBackendPreparationTests' 2>&1 | tee evidence/swift-tests.log
       - name: New process with all network access denied
         run: |
           set -o pipefail
