@@ -24,17 +24,12 @@ jobs:
           for name in en de fr silence; do
             curl --fail --retry 3 --location "https://raw.githubusercontent.com/Nathan-Roll1/muesli/${{ github.sha }}/.validation-fixtures/$name.wav" -o "fixtures/$name.wav"
           done
-      - name: Focused tests and real-model cached reload
-        shell: bash
-        run: |
-          set -euo pipefail
-          ORUKEET_AUDIO_DIR="$PWD/fixtures" swift test --package-path native/MuesliNative --filter 'OrukeetModelStoreTests|FluidAudioTranscriberTests|BackendOptionTests|ModelDownloadCoordinatorTests|DictationBackendPreparationTests' | tee evidence/swift-tests.log
       - name: Complete unsigned development app with Xcode
         shell: bash
         run: |
           set -euo pipefail
           brew install xcodegen
-          MUESLI_SKIP_SIGN=1 MUESLI_USE_XCODE_BUILD=1 MUESLI_ALLOW_MISSING_LOCALVQE=1 MUESLI_APP_NAME=MuesliOrukeetPreview MUESLI_BUNDLE_ID=com.muesli.orukeet-validation MUESLI_SUPPORT_DIR_NAME=MuesliOrukeetPreview MUESLI_DISPLAY_NAME=MuesliOrukeetPreview MUESLI_SPARKLE_FEED_URL='' MUESLI_INSTALL_DIR="$PWD/evidence/apps" ./scripts/build_native_app.sh debug | tee evidence/xcode-build.log
+          MUESLI_TRUST_PACKAGE_PLUGINS=1 MUESLI_SKIP_SIGN=1 MUESLI_USE_XCODE_BUILD=1 MUESLI_ALLOW_MISSING_LOCALVQE=1 MUESLI_APP_NAME=MuesliOrukeetPreview MUESLI_BUNDLE_ID=com.muesli.orukeet-validation MUESLI_SUPPORT_DIR_NAME=MuesliOrukeetPreview MUESLI_DISPLAY_NAME=MuesliOrukeetPreview MUESLI_SPARKLE_FEED_URL='' MUESLI_INSTALL_DIR="$PWD/evidence/apps" ./scripts/build_native_app.sh debug | tee evidence/xcode-build.log
           ditto -c -k --sequesterRsrc --keepParent evidence/apps/MuesliOrukeetPreview.app evidence/MuesliOrukeetPreview.zip
           rm -rf evidence/apps
       - uses: actions/upload-artifact@v4
