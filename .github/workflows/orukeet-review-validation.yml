@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: 38393cda523dba2b27e41cba109c11cc83164c9c
+          ref: 0952098b2437b1a9be69fae7057a2d6ce774e386
       - name: Record exact source and prepare attributed fixtures
         run: |
           mkdir -p evidence fixtures
